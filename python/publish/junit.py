@@ -188,7 +188,8 @@ def adjust_prefix(file: Optional[str], prefixes: Optional[str]) -> Optional[str]
             file = "".join([prefix[1:], file])
         elif prefix.startswith('-'):
             # remove prefix
-            file = file[len(prefix)-1:] if file.startswith(prefix[1:])
+            if file.startswith(prefix[1:]):
+                file = file[len(prefix)-1:]
     return file
 
 
