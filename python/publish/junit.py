@@ -175,17 +175,21 @@ def parse_junit_xml_files(files: Iterable[str], large_files: bool, drop_testcase
     return progress_safe_parse_xml_file(files, parse, progress)
 
 
-def adjust_prefix(file: Optional[str], prefix: Optional[str]) -> Optional[str]:
+def adjust_prefix(file: Optional[str], prefixes: Optional[str]) -> Optional[str]:
     if prefix is None or file is None:
         return file
 
-    # prefix starts either with '+' or '-'
-    if prefix.startswith('+'):
-        # add prefix
-        return "".join([prefix[1:], file])
+    prefixes = [p.strip() for p in prefixes.split(',')]
 
-    # remove prefix
-    return file[len(prefix)-1:] if file.startswith(prefix[1:]) else file
+    for prefix in prefixes:
+        # prefix starts either with '+' or '-'
+        if prefix.startswith('+'):
+            # add prefix
+            file = "".join([prefix[1:], file])
+        elif prefix.startswith('-'):
+            # remove prefix
+            file = file[len(prefix)-1:] if file.startswith(prefix[1:])
+    return file
 
 
 def process_junit_xml_elems(trees: Iterable[ParsedJUnitFile],

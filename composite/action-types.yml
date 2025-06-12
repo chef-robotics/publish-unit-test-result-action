@@ -82,7 +82,10 @@ inputs:
       - milliseconds
 
   test_file_prefix:
-    type: string
+    type: list
+    separator: ','
+    list-item:
+      type: string
 
   report_individual_runs:
     type: boolean
