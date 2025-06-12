@@ -179,6 +179,8 @@ def adjust_prefix(file: Optional[str], prefixes: Optional[str]) -> Optional[str]
     if prefixes is None or file is None:
         return file
 
+
+    print("Rewriting " + file)
     prefixes = [p.strip() for p in prefixes.split(',')]
 
     for prefix in prefixes:
@@ -190,6 +192,7 @@ def adjust_prefix(file: Optional[str], prefixes: Optional[str]) -> Optional[str]
             # remove prefix
             if file.startswith(prefix[1:]):
                 file = file[len(prefix)-1:]
+    print(" -> " + file)
     return file
 
 
