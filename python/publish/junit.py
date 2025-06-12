@@ -176,7 +176,7 @@ def parse_junit_xml_files(files: Iterable[str], large_files: bool, drop_testcase
 
 
 def adjust_prefix(file: Optional[str], prefixes: Optional[str]) -> Optional[str]:
-    if prefix is None or file is None:
+    if prefixes is None or file is None:
         return file
 
     prefixes = [p.strip() for p in prefixes.split(',')]
